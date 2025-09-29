@@ -1,3 +1,4 @@
+const connection = require("./data/connection");
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -9,8 +10,9 @@ const port = 3900;
 
 app.use(cors());
 
-app.listen(port, console.log("Server is running on port: " + port));
-
+connection.sync({ force: false }).then(() => {
+  app.listen(port, console.log("Server is running on port: " + port));
+});
 
 //Parse body data from content-typ: application/json to json
 app.use(express.json());
